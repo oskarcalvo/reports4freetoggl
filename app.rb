@@ -7,6 +7,14 @@ require 'sinatra/assetpack'
 
 
 class Reports4freetoggl < Sinatra::Base
+
+  configure do
+    set :bind, '0.0.0.0'
+    enable :sessions
+
+  end
+
+
   get '/' do
     "Hello, world!"
   end
