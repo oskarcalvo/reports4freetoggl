@@ -5,6 +5,7 @@ require 'pry'
 require 'json'
 require 'sinatra/assetpack'
 
+require_relative 'vendor/toggl_login.rb'
 
 class Reports4freetoggl < Sinatra::Base
 
@@ -38,10 +39,7 @@ class Reports4freetoggl < Sinatra::Base
   end
 
   post '/loginvalidate' do
-  puts params
-
-
+    puts TogglLogin.new.get_toggl_user_data(params[:mail],params[:password]) 
   end
-
 
 end
