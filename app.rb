@@ -8,27 +8,48 @@ require 'sinatra/assetpack'
 require_relative 'vendor/toggl_login.rb'
 
 class Reports4freetoggl < Sinatra::Base
-
+  
   configure do
+    set :root, File.dirname(__FILE__)
     set :bind, '0.0.0.0'
     enable :sessions
+    set :sessions, true
     set :static_cache_control, [:public, max_age: 60 * 60 * 24 * 365]
-        
+    set :public_folder, Proc.new { File.join(root, "assets") }
+    
+     
     register Sinatra::AssetPack
     assets do
-      serve '/js', :from => 'asset/js'
+      serve '/js', :from => 'assets/js'
+      serve '/css', :from => 'assets/css'      
+      
       js :application, [
         '/js/jquery.js',
         '/js/foundation.min.js',
         '/js/easyredmine.js',
-        '/js/vendor/*.js'
+        '/js/vendor/*.js',
+        '/js/pickadate/lib/compressed/picker.js',
+        '/js/pickadate/lib/compressed/picker.date.js',
+        '/js/pickadate/lib/compressed/legacy.js'
       ]
     
-      serve '/css', :from => 'asset/css'
-      css :application, ['/css/*.css']
+      
+      css :application, [
+        '/css/*.css',
+        '/css/pickadate/lib/compressed/themes/*.css'        
+      ]
     end    
 
   end
+
+  def require_logged_in
+    redirect('login') unless is_authenticated?
+  end
+
+  def is_authenticated?
+    return !!session[:fullname]
+  end
+
 
   get '/' do
     "Hello, world!"
@@ -39,7 +60,25 @@ class Reports4freetoggl < Sinatra::Base
   end
 
   post '/loginvalidate' do
-    puts TogglLogin.new.get_toggl_user_data(params[:mail],params[:password]) 
+   
+    user = TogglLogin.new.get_toggl_user_data(params[:mail],params[:password]) 
+
+    if user.nil?
+      redirect '/login'
+    else    
+      session[:api_token] = user['data']['api_token']
+      session[:fullname]  = user['data']['fullname']
+      redirect '/report'
+    end
   end
+
+  get '/report' do
+    require_logged_in
+    
+    
+    
+    erb :report
+  end
+
 
 end

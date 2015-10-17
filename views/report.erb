@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Toogl free users reports</title>
+    <%= js :application %>
+    <%= css :application %>
+</head>
+<body class="report">
+  <form>  
+    <input type="text" class="datepicker1" name="startin" >
+    <input type="text" class="datepicker2" name="endin">
+    <input type="submit">
+  </form>
+
+<script>
+$('.datepicker1').pickadate();
+$('.datepicker2').pickadate();
+</script>
+</body>
+</html>

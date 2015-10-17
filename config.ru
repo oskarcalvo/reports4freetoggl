@@ -3,5 +3,5 @@ require 'bundler'
 
 Bundler.require
 
-require './reports4freetoggl.rb'
+require './app.rb'
 run Reports4freetoggl
