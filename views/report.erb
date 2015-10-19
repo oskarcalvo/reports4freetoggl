@@ -13,16 +13,20 @@
     <%= js :application %>
     <%= css :application %>
 </head>
-<body class="report">
-  <form>  
-    <input type="text" class="datepicker1" name="startin" >
-    <input type="text" class="datepicker2" name="endin">
+<body class="/report" method="post">
+  <form action="/report">  
+    <input type="text" class="datepicker1" name="start_date" value="2015-10-12" >
+    <input type="text" class="datepicker2" name="end_date" value="2015-10-19">
     <input type="submit">
   </form>
 
 <script>
-$('.datepicker1').pickadate();
-$('.datepicker2').pickadate();
+  $('.datepicker1').pickadate({
+  formatSubmit: 'yyyy-mm-dd',
+  });
+$('.datepicker2').pickadate({
+  formatSubmit: 'yyyy-mm-dd',
+});
 </script>
 </body>
 </html>
