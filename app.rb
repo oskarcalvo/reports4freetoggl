@@ -4,8 +4,10 @@ require 'uri'
 require 'pry'
 require 'json'
 require 'sinatra/assetpack'
+require 'datetime'
 
 require_relative 'vendor/toggl_login.rb'
+require_relative 'vendor/toggl_data.rb'
 
 class Reports4freetoggl < Sinatra::Base
   
@@ -74,6 +76,11 @@ class Reports4freetoggl < Sinatra::Base
 
   get '/report' do
     require_logged_in
+    
+    if params
+      puts 'hay parametros'
+      data = TogglData.new.get_toggl_data(session[:api_token],params)
+    end
     
     
     
