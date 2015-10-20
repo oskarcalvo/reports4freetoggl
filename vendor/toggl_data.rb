@@ -2,8 +2,6 @@ class TogglData
 
   def get_toggl_data(user_api_token, dates = NIL)
   
-    puts 'entramos en la clase'
-
     uri = URI('https://www.toggl.com/api/v8/time_entries')
     # path2 = "?start_date=2015-09-01T00:00:00:00&end_date=2015-09-01T18:00:00:00"
     dates = {
@@ -25,7 +23,7 @@ class TogglData
     # puts res.code
     times = JSON.parse(res.body)
     # puts times
-
+    return times
   
   end
 
