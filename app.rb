@@ -5,10 +5,12 @@ require 'pry'
 require 'json'
 require 'sinatra/assetpack'
 require 'date'
+require 'time'
 
 require_relative 'vendor/toggl_login.rb'
 require_relative 'vendor/toggl_data.rb'
 require_relative 'vendor/toggl_organize_data.rb'
+require_relative 'vendor/toggl_date.rb'
 
 class Reports4freetoggl < Sinatra::Base
   
@@ -71,28 +73,32 @@ class Reports4freetoggl < Sinatra::Base
     else    
       session[:api_token] = user['data']['api_token']
       session[:fullname]  = user['data']['fullname']
-      redirect '/report'
+      redirect '/report/date'
     end
   end
 
-  get '/report' do
+  get '/report/date' do
   
     require_logged_in
     
+    @time_entries = nil
     erb :report
     
   end
   
-  post '/report' do
-
+  post '/report/date' do
     require_logged_in
+    
     
     if params
       kind = 'description'
-      data_times   = TogglData.new.get_toggl_data(session[:api_token],params)
-      output = TogglOrganizeData.new kind , data_times
+      params[:end_date_submit] = TogglDate.new.get_end_date_submit(params[:end_date_submit])
+      data_times   = TogglData.new.get_toggl_data session[:api_token],params
+      
+      @time_entries = TogglOrganizeData.new.build_data kind , data_times
     end
       
+    erb :report
   end
 
 
