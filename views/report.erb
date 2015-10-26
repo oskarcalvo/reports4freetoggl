@@ -17,7 +17,7 @@
   <div class="row">
     
     <div class="small-6 large-centered columns">  
-  <form action="/report" method="post">  
+  <form action="/report/date" method="post">  
     <input type="text" class="datepicker1" name="start_date" value="2015-10-12" >
     <input type="text" class="datepicker2" name="end_date" value="2015-10-19">
     <select>
@@ -28,13 +28,45 @@
     <input type="submit">
   </form>
 </div></div>
+
+  <div class="row">
+    
+    <div class="small-6 large-centered columns">
+      <% if @time_entries %>
+        <dl>
+          <% @time_entries.each do | key, value | %>
+            <dt> <%= key %> </dt> <dd data-time="<%= value %>"><%= value %></dd>
+          <% end %>
+        </dl>
+      <% end %>
+    </div>
+  </div>
 <script>
+
   $('.datepicker1').pickadate({
+  firstDay: 1,
   formatSubmit: 'yyyy-mm-dd',
   });
 $('.datepicker2').pickadate({
+  firstDay: 1,
   formatSubmit: 'yyyy-mm-dd',
 });
+/*
+var salida = $('.datepicker2').pickadate({
+ formatSubmit: 'yyyy-mm-dd',
+});
+
+var entrada =   $('.datepicker1').pickadate({
+ formatSubmit: 'yyyy-mm-dd',
+ onSet: function(date){
+   salida
+     .set("min", sumDays(entrada.get(), 1) )
+     .set("select", sumDays(entrada.get(), 1));
+ }
+});
+
+entrada.set("select", -7); (edited)
+*/
 </script>
 </body>
 </html>
