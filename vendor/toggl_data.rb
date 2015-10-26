@@ -1,14 +1,19 @@
 class TogglData
 
-  def get_toggl_data(user_api_token, dates = NIL)
+  def get_toggl_data(user_api_token, params = NIL)
   
     uri = URI('https://www.toggl.com/api/v8/time_entries')
     # path2 = "?start_date=2015-09-01T00:00:00:00&end_date=2015-09-01T18:00:00:00"
+    #star_date_submit = params[:star_date_submit].to_s + 'T00:00:00+00:00'
+    #end_date_submit = params[:end_date_submit].to_s + 'T23:59:59+00:00' 
+    #  end_date_submit = Date.parse(params[:end_date_submit] )
+    #  end_date_submit = (end_date_submit + 1).to_s
+    # puts end_date_submit
+    # puts params
     dates = {
-      :start_date => '2015-10-01T00:00:00+00:00',
-      :end_date => '2015-10-15T00:00:00+00:00'
+      :start_date => params[:start_date_submit] + 'T00:00:00+00:00',
+      :end_date => params[:end_date_submit] + 'T00:00:00+00:00'
     }
-
 
     user = user_api_token
     pass = 'api_token'
@@ -17,15 +22,12 @@ class TogglData
     http.use_ssl = true
     uri.query = URI.encode_www_form(dates)
     request = Net::HTTP::Get.new(uri.request_uri)
-    #puts "URI = #{uri.request_uri}"
     request.basic_auth(user, pass)
     res = http.request(request)
-    # puts res.code
     times = JSON.parse(res.body)
-    # puts times
+
     return times
   
   end
-
 
 end
