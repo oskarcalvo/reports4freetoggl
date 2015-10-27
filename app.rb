@@ -41,7 +41,8 @@ class Reports4freetoggl < Sinatra::Base
       
       css :application, [
         '/css/*.css',
-        '/css/pickadate/lib/compressed/themes/*.css'        
+        '/css/pickadate/lib/compressed/themes/default.css',
+        '/css/pickadate/lib/compressed/themes/default.date.css'
       ]
     end    
 
@@ -57,7 +58,11 @@ class Reports4freetoggl < Sinatra::Base
 
 
   get '/' do
-    "Hello, world!"
+    redirect '/login'
+  end
+  
+  get 'how-to' do
+    erb :howto
   end
   
   get '/login' do
