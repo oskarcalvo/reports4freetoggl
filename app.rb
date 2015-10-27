@@ -61,7 +61,7 @@ class Reports4freetoggl < Sinatra::Base
     redirect '/login'
   end
   
-  get 'how-to' do
+  get '/how-to' do
     erb :howto
   end
   
