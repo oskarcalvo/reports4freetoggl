@@ -1,5 +1,7 @@
 /** Login form **/
-.loginform .row {margin-top: 50px;}
+.loginform .row,
+.report .row
+ {margin-top: 50px;}
 
 
 .size-20 {font-size: 20px}
@@ -7,4 +9,15 @@
 
 tr:hover {
     background: #B9B7B7;
+}
+
+.side-nav-column {
+    background: #2BA6CB;
+    overflow: visible;
+}
+.row .side-nav-column li a {
+  color: #222222!important;
+}
+.row .side-nav-column li a:hover{
+  color: #FFFFFF!important;
 }
