@@ -16,10 +16,10 @@
 
 <body class="loginform">
   <div class="row">
-    
-    <div class="small-6 large-centered columns">
+    <%= erb :navbar %>
+    <div class=" large-4 large-centered columns">
       <form action="/loginvalidate" method="post">
-        <label>Login with your's toggls account</label>
+        <label>Login with your's <a href="https://toggl.com/" taget="_blank">Toggls</a> account</label>
         <div class="form-group">
         <input type="text" name="mail" placeholder="Mail" class="form-control"></div>
         <div class="form-group">

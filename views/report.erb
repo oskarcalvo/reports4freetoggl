@@ -15,8 +15,8 @@
 </head>
 <body class="report" >
   <div class="row">
-    
-    <div class="small-6 large-centered columns">  
+    <%= erb :navbar %>
+    <div class="large-8 columns">  
       <form action="/report/date" method="post">  
         <div class="form-group">
           <input type="text" class="datepicker1" name="start_date" value="2015-10-12" >
@@ -41,7 +41,9 @@
       <% if @time_entries %>
         <dl>
           <% @time_entries.each do | key, value | %>
+            <div>
             <dt> <%= key %> </dt> <dd data-time="<%= value %>"><%= Time.at(value).utc.strftime("%H:%M:%S") %></dd>
+            </div>
           <% end %>
         </dl>
       <% end %>
