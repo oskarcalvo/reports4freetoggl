@@ -30,9 +30,9 @@ class Reports4freetoggl < Sinatra::Base
       
       js :application, [
         '/js/jquery.js',
-        '/js/foundation.min.js',
+        #'/js/foundation.min.js',
         '/js/easyredmine.js',
-        '/js/vendor/*.js',
+        #'/js/vendor/*.js',
         '/js/pickadate/lib/compressed/picker.js',
         '/js/pickadate/lib/compressed/picker.date.js',
         '/js/pickadate/lib/compressed/legacy.js'
@@ -40,7 +40,7 @@ class Reports4freetoggl < Sinatra::Base
     
       
       css :application, [
-        '/css/*.css',
+        '/css/easyredmine.css',
         '/css/pickadate/lib/compressed/themes/default.css',
         '/css/pickadate/lib/compressed/themes/default.date.css'
       ]
