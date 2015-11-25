@@ -21,3 +21,5 @@ tr:hover {
 .row .side-nav-column li a:hover{
   color: #FFFFFF!important;
 }
+
+.container .row .reportbox {margin-left: 32%;}
