@@ -19,7 +19,7 @@
   <div class="container">
     <div class="row">
       <%= erb :navbar %>
-      <div class="col s4 offset-s4">  
+      <div class="col s4 offset-s4 section">  
         <form action="/report/date" method="post">  
           <div class="form-group">
             <input type="text" class="datepicker1" name="start_date" value="2015-10-12" >
@@ -37,7 +37,7 @@
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
       </div>
-      <div class="reportbox col">
+      <div class="reportbox col section">
         <% if @time_entries %>
           <h2>Reports from ... to ....</h2>
         
