@@ -34,6 +34,14 @@
             </select>
           </div>
           <br>
+          <div class="form-group">
+            <select name="project" style="display: inherit;">
+              <% @projects.each do | key, value| %>
+                <option value="<%= key %>"> <%= value%>  </option> 
+              <% end %>
+            </select>
+          </div>
+          <br>
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
       </div>
@@ -59,7 +67,6 @@
       </div>      
     </div>
   </div>
-
 <script>
 
   $('.datepicker1').pickadate({
@@ -70,22 +77,6 @@ $('.datepicker2').pickadate({
   firstDay: 1,
   formatSubmit: 'yyyy-mm-dd',
 });
-/*
-var salida = $('.datepicker2').pickadate({
- formatSubmit: 'yyyy-mm-dd',
-});
-
-var entrada =   $('.datepicker1').pickadate({
- formatSubmit: 'yyyy-mm-dd',
- onSet: function(date){
-   salida
-     .set("min", sumDays(entrada.get(), 1) )
-     .set("select", sumDays(entrada.get(), 1));
- }
-});
-
-entrada.set("select", -7); (edited)
-*/
 </script>
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>

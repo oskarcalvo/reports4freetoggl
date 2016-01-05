@@ -1,5 +1,4 @@
 require 'sinatra'
-require 'sinatra/cookies'
 require 'net/http'
 require 'uri'
 require 'pry'
@@ -13,9 +12,9 @@ require_relative 'vendor/toggl_login.rb'
 require_relative 'vendor/toggl_data.rb'
 require_relative 'vendor/toggl_organize_data.rb'
 require_relative 'vendor/toggl_date.rb'
+require_relative 'vendor/toggl_project.rb'
 
 class Reports4freetoggl < Sinatra::Base
-  helpers Sinatra::Cookies
 
 
   
@@ -61,11 +60,6 @@ class Reports4freetoggl < Sinatra::Base
     return !!session[:fullname]
   end
 
-  def define_cookie_project(project)
-    
-  end
-
-
   get '/' do
     redirect '/login'
   end
@@ -82,9 +76,10 @@ class Reports4freetoggl < Sinatra::Base
    
     user = TogglLogin.new.get_toggl_user_data(params[:mail],params[:password]) 
     #Partial code to generate cookies with informations of projects and id_projects
-    define_cookie_project (user['data']['projects'])
+    session[:projects] = TogglProject.new.create_toggl_projects_structure ( user['data']['projects'])
     
     #binding.pry
+    
     if user.nil?
       redirect '/login'
     else    
@@ -95,17 +90,17 @@ class Reports4freetoggl < Sinatra::Base
   end
 
   get '/report/date' do
-  
     require_logged_in
     
     @time_entries = nil
+    @projects = session[:projects]
+    puts @projects
     erb :report
     
   end
   
   post '/report/date' do
-    require_logged_in
-    
+    require_logged_in    
     
     if params
       kind = 'description'
@@ -114,6 +109,8 @@ class Reports4freetoggl < Sinatra::Base
       
       @time_entries = TogglOrganizeData.new.build_data kind , data_times
     end
+    @projects = session[:projects]
+    puts @projects    
       
     erb :report
   end
