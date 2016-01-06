@@ -20,11 +20,11 @@ class TogglOrganizeData
   
   def data_organize_by_name (data)
     tasks = Hash.new
+ 
+    data['data'].each do | entry |
 
-    data.each do | entry |
-    
       description = entry['description']
-      duration = entry['duration']
+      duration = entry['dur']/1000
 
       if tasks[description].nil?
         
