@@ -4,7 +4,6 @@ require 'uri'
 require 'pry'
 require 'json'
 require 'sinatra/assetpack'
-require 'sinatra/partials'
 require 'date'
 require 'time'
 
@@ -16,8 +15,7 @@ require_relative 'vendor/toggl_date.rb'
 require_relative 'vendor/toggl_project.rb'
 
 class Reports4freetoggl < Sinatra::Base
-
-
+  
   
   configure do
     set :root, File.dirname(__FILE__)
@@ -27,7 +25,6 @@ class Reports4freetoggl < Sinatra::Base
     set :static_cache_control, [:public, max_age: 60 * 60 * 24 * 365]
     set :public_folder, Proc.new { File.join(root, "assets") }
     
-     
     register Sinatra::AssetPack
     assets do
       serve '/js', :from => 'assets/js'
@@ -72,17 +69,18 @@ class Reports4freetoggl < Sinatra::Base
   
   get '/how-to' do
     @is_loged = is_authenticated?
-    puts @is_loged
-    pry
     
     erb :howto
   end
   
   get '/login' do
+    @is_loged = is_authenticated?
+
     erb :loginform
   end
 
   post '/loginvalidate' do
+    @is_loged = is_authenticated?
     user = TogglLogin.new.get_toggl_user_data(params[:mail],params[:password]) 
     #puts user['data']['workspaces']
     #binding.pry
@@ -103,7 +101,7 @@ class Reports4freetoggl < Sinatra::Base
   get '/report/date' do
     require_logged_in
 
-    
+    @is_loged = is_authenticated?
     @time_entries = nil
     @projects = session[:projects]
     @default_time = default_time
@@ -114,6 +112,8 @@ class Reports4freetoggl < Sinatra::Base
   
   post '/report/date' do
     require_logged_in    
+
+    @is_loged = is_authenticated?
     
     if params
      

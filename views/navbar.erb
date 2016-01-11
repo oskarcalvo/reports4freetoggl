@@ -1,11 +1,14 @@
 <nav>
   <div class="nav-wrappe">
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href="/login">Login</a></li>
       <li><a href="/why">Why</a></li>
       <li><a href="/what">What is this</a></li>
       <li><a href="/who">who</a></li>
+      <% if !@is_loged %>
+      <li><a href="/login">Login</a></li>
+      <% else %>
       <li><a href="/logout">Logout</a></li>
+      <% end %>
     </ul>
   </div>
 </nav>
