@@ -23,3 +23,14 @@ td:hover {
 }
 
 .container .row .reportbox {margin-left: 32%;}
+
+.datefield {
+  float: left;
+  margin-left: 5px;
+}
+
+.selectproject {
+  float: left;
+    width: 100%;
+    margin-bottom: 15px;
+  }

@@ -19,13 +19,17 @@
   <div class="container">
     <div class="row">
       <%= erb :navbar %>
-      <div class="col s4 offset-s4 section">  
+      <div class="col s7 push-s3 section">  
         <form action="/report/date" method="post">  
-          <div class="form-group">
-            <input type="text" class="datepicker1" name="start_date" value="<%= @default_time['start'] %>" >
-          </div>
-          <div class="form-group">
-            <input type="text" class="datepicker2" name="end_date" value="<%= @default_time['end'] %>">
+          <div>
+            <div class="form-group datefield">
+              <label>From</label>
+              <input type="text" class="datepicker1" name="start_date" value="<%= @default_time['start'] %>" >
+            </div>
+            <div class="form-group datefield">
+              <label>To</label>
+              <input type="text" class="datepicker2" name="end_date" value="<%= @default_time['end'] %>">
+            </div>
           </div>
           <div class="form-group">
             <select>
@@ -34,8 +38,8 @@
             </select>
           </div>
           <br>
-          <div class="form-group">
-            <select name="project" style="display: inherit;">
+          <div class="input-field selectproject">
+            <select name="project" style="display: inherit;" class="">
               <% @projects.each do | key, value| %>
                 <option value="<%= key %>"> <%= value%>  </option> 
               <% end %>
@@ -45,9 +49,9 @@
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
       </div>
-      <div class="reportbox col section">
+      <div class="s8 push-s2 reportbox col section">
         <% if @time_entries %>
-          <h2>Reports from ... to ....</h2>
+          <h4>Reports from <%= @default_time['start'] %> to <%= @default_time['end'] %></h4>
         
           <table class="responsive-table highlight bordered">
             <thead>

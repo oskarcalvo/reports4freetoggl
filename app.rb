@@ -4,6 +4,7 @@ require 'uri'
 require 'pry'
 require 'json'
 require 'sinatra/assetpack'
+require 'sinatra/partials'
 require 'date'
 require 'time'
 
@@ -70,6 +71,10 @@ class Reports4freetoggl < Sinatra::Base
   end
   
   get '/how-to' do
+    @is_loged = is_authenticated?
+    puts @is_loged
+    pry
+    
     erb :howto
   end
   
