@@ -8,11 +8,11 @@ require 'date'
 require 'time'
 
 
-require_relative 'vendor/toggl_login.rb'
-require_relative 'vendor/toggl_data.rb'
-require_relative 'vendor/toggl_organize_data.rb'
-require_relative 'vendor/toggl_date.rb'
-require_relative 'vendor/toggl_project.rb'
+require_relative 'lib/toggl/toggl_login.rb'
+require_relative 'lib/toggl/toggl_data.rb'
+require_relative 'lib/toggl/toggl_organize_data.rb'
+require_relative 'lib/toggl/toggl_date.rb'
+require_relative 'lib/toggl/toggl_project.rb'
 
 class Reports4freetoggl < Sinatra::Base
   
@@ -112,15 +112,15 @@ class Reports4freetoggl < Sinatra::Base
     if params
      
       kind = 'description'
-      params[:end_date_submit] = TogglDate.new.get_end_date_submit(params[:end_date_submit])
+      params[:end_date] = TogglDate.new.get_end_date_submit(params[:end_date])
 
       query_string = {
         #Project_id
         "project_ids"   => params[:project],
         "user_agent"    => session[:user_agent],#"oscar.calvo@thecocktail.com",
         "workspace_id"  => session[:workspace_id],
-        "since"         => params[:start_date_submit] + 'T00:00:00+00:00',
-        "until"         => params[:end_date_submit] + 'T00:00:00+00:00'
+        "since"         => params[:start_date] + 'T00:00:00+00:00',
+        "until"         => params[:end_date] + 'T00:00:00+00:00'
         #"grouping" => "projects",
         #"subgrouping" => "tasks"
       }
