@@ -67,12 +67,6 @@ class Reports4freetoggl < Sinatra::Base
     redirect '/login'
   end
   
-  get '/how-to' do
-    @is_loged = is_authenticated?
-    
-    erb :howto
-  end
-  
   get '/login' do
     @is_loged = is_authenticated?
 
@@ -140,6 +134,12 @@ class Reports4freetoggl < Sinatra::Base
     #puts @projects    
       
     erb :report
+  end
+
+  get '/explain' do
+    @is_loged = is_authenticated?
+    
+    erb :howto
   end
 
 
