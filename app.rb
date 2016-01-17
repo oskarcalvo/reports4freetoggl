@@ -126,7 +126,7 @@ class Reports4freetoggl < Sinatra::Base
       }
       
       data_times   = TogglData.new.get_toggl_data session[:api_token],query_string   
-      @default_time = default_time params[:start_date_submit] , params[:end_date_submit]
+      @default_time = default_time params[:start_date] , params[:end_date]
       
       @time_entries = TogglOrganizeData.new.build_data kind , data_times
     end
