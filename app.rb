@@ -6,7 +6,7 @@ require 'json'
 require 'sinatra/assetpack'
 require 'date'
 require 'time'
-
+require 'csv'
 
 require_relative 'lib/toggl/toggl_login.rb'
 require_relative 'lib/toggl/toggl_data.rb'
@@ -116,16 +116,35 @@ class Reports4freetoggl < Sinatra::Base
 
       query_string = {
         #Project_id
-        "project_ids"   => params[:project],
-        "user_agent"    => session[:user_agent],#"oscar.calvo@thecocktail.com",
-        "workspace_id"  => session[:workspace_id],
-        "since"         => params[:start_date] + 'T00:00:00+00:00',
-        "until"         => params[:end_date] + 'T00:00:00+00:00'
-        #"grouping" => "projects",
-        #"subgrouping" => "tasks"
+        project_ids:    params[:project],
+        user_agent:     session[:user_agent],
+        workspace_id:   session[:workspace_id],
+        since:          params[:start_date] + 'T00:00:00+00:00',
+        "until"         => params[:end_date] + 'T00:00:00+00:00',
       }
       
       data_times   = TogglData.new.get_toggl_data session[:api_token],query_string   
+       
+      result_page_number = TogglOrganizeData.new.number_of_pages(data_times['total_count'])
+      
+      if data_times['total_count'] > data_times['per_page'] &&  result_page_number >= 2
+       #data = Array.new
+       #data = data_times['data']
+       
+       valores_retornados = Array.new
+       
+       (2..result_page_number).each do | index |
+        query_string[:pages] = index
+        returned_data = TogglData.new.get_toggl_data session[:api_token],query_string  
+        
+        valores_retornados << returned_data['data']
+       end
+       
+        binding.pry
+      
+      end
+      
+      
       @default_time = default_time params[:start_date] , params[:end_date]
       
       @time_entries = TogglOrganizeData.new.build_data kind , data_times
