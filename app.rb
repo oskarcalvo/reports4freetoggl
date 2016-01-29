@@ -110,6 +110,8 @@ class Reports4freetoggl < Sinatra::Base
     @is_loged = is_authenticated?
     
     if params
+    
+      puts params
      
       kind = 'description'
       params[:end_date] = TogglDate.new.get_end_date_submit(params[:end_date])
@@ -134,6 +136,7 @@ class Reports4freetoggl < Sinatra::Base
        valores_retornados = Array.new
        
        (2..result_page_number).each do | index |
+        puts "#{index}  index "
         query_string[:pages] = index
         returned_data = TogglData.new.get_toggl_data session[:api_token],query_string  
         
@@ -149,6 +152,7 @@ class Reports4freetoggl < Sinatra::Base
       
       @time_entries = TogglOrganizeData.new.build_data kind , data_times
     end
+    @selected_project = params[:project].to_i
     @projects = session[:projects]
     #puts @projects    
       
