@@ -40,8 +40,13 @@
           <br>
           <div class="input-field selectproject">
             <select name="project" style="display: inherit;" class="">
+              <% binding.pry %>
               <% @projects.each do | key, value| %>
-                <option value="<%= key %>"> <%= value%>  </option> 
+                <option value="<%= key %>" 
+                  <% if @selected_project == key %>   
+                    selected ="selected"
+                  <% end %>
+                > <%= value%>  </option> 
               <% end %>
             </select>
           </div>
