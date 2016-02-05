@@ -75,9 +75,11 @@ class Reports4freetoggl < Sinatra::Base
 
   post '/loginvalidate' do
     @is_loged = is_authenticated?
-    user = TogglLogin.new.get_toggl_user_data(params[:mail],params[:password]) 
-    #puts user['data']['workspaces']
-    #binding.pry
+
+
+    user = TogglData.new.get_user(params[:mail],params[:password]) 
+    
+    binding.pry
     
     if user.nil?
       redirect '/login'
