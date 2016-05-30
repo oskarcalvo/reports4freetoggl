@@ -1,17 +1,17 @@
 class TogglData
 
   public
-  def get_reports user, parmas 
+  def get_reports apitoken, params
   
-  uri = URI('https://toggl.com/reports/api/v2/details')
-  
+  uri = URI('https://www.toggl.com/reports/api/v2/details')
+  user = build_user_hash apitoken, 'api_token'
   perform user, params, uri
   
   end
   
   
   def get_user userdata, passdata
-  uri = URI('https://www.toggl.com/api/v8/me?with_related_data=true')
+  uri = URI('https://www.toggl.com/api/v8/me')
 
   user = build_user_hash userdata, passdata
 
@@ -68,7 +68,7 @@ class TogglData
     request = Net::HTTP::Get.new(uri.request_uri)
     request.basic_auth(user, pass)
 
-    binding.pry
+    # binding.pry
     
     res = http.request(request)
     case res

@@ -79,7 +79,7 @@ class Reports4freetoggl < Sinatra::Base
 
     user = TogglData.new.get_user(params[:mail],params[:password]) 
     
-    binding.pry
+    #binding.pry
     
     if user.nil?
       redirect '/login'
@@ -127,7 +127,7 @@ class Reports4freetoggl < Sinatra::Base
         "until"         => params[:end_date] + 'T00:00:00+00:00',
       }
       
-      data_times   = TogglData.new.get_toggl_data session[:api_token],query_string   
+      data_times   = TogglData.new.get_reports session[:api_token], query_string   
        
       result_page_number = TogglOrganizeData.new.number_of_pages(data_times['total_count'])
       
@@ -145,7 +145,7 @@ class Reports4freetoggl < Sinatra::Base
         valores_retornados << returned_data['data']
        end
        
-        binding.pry
+        #binding.pry
       
       end
       
